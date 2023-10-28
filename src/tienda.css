@@ -1,0 +1,468 @@
+/*** Tienda de Productos ***/
+
+.header {
+    z-index: 90;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    /*
+      background-image: url('../img/fondo.jpg');
+      background-position: 30% 100%;
+       
+        */
+    background-color: #000000;
+    width: 100%;
+  }
+  
+  .relieve-titulo {
+    font-size: 34px;
+    margin: 0px 0px 0px 50px;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  @media (min-width: 600px) {
+    .pagina-principal {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+    }
+  }
+  
+  .pagina-principal {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    /*
+    max-width: 1400px;
+    min-height: 1000px;
+    */
+  }
+  
+  .div-filtros {
+    margin: 180px 0px 30px 0px;
+    padding: 10px;
+    min-width: 165px;
+  }
+  
+  .filtro {
+    font-family: "Rubik", sans-serif;
+    color: #8c949c;
+    background-color: white;
+    /* border: solid 1px #a09c9c; */
+    border-radius: 10px;
+    min-height: 400px;
+    width: 80%;
+    margin: 0px auto 0px auto;
+  
+  }
+  
+  .filtro h3 {
+    font-weight: bold;
+  }
+  .lista-precios {
+    display: none;
+    padding: 5px;
+    border-bottom: 1px solid rgb(206, 201, 201);
+    border-left: 1px solid rgb(206, 201, 201);
+    border-right: 1px solid rgb(206, 201, 201);
+    margin: 0px 0px 10px 0px;
+  
+  }
+  
+  .precio-principal {
+    padding: 5px;
+  }
+  .precios-titulo {
+    font-weight: 500;
+    font-size: larger;
+    margin-bottom: 10px;
+  }
+  
+  #mostrar-precio {
+    margin-bottom: 5px;
+    font-size: large;
+  }
+  
+  .filtro-precio-select {
+    font-size: 14px;
+    padding: 10px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+  }
+  
+  .border-select {
+    border-top: #cec9c9 solid 1px;
+    border-left: #cec9c9 solid 1px;
+    border-right: #cec9c9 solid 1px;
+  }
+  
+  .lista-precios li {
+    height: 35px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    font-size: 12px;
+    font-family: "Rubik", sans-serif;
+    font-size: 12px;
+    color: #3a3a3a;
+  }
+  /* div del precio principal */
+  
+  .flecha {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-left: 3px;
+    border-top: rgb(51, 50, 50) solid 2px;
+    border-right: rgb(51, 50, 50) solid 2px;
+  }
+  
+  .flecha.derecha {
+    transform: rotate(225deg);
+  }
+  .flecha.abajo {
+    transform: rotate(315);
+  }
+  .flecha.izquierda {
+    transform: rotate(45deg);
+  }
+  .flecha.arriba {
+    transform: rotate(135deg);
+  }
+  
+  @media (min-width: 1200px) {
+    .flecha {
+    }
+  }
+  
+  .lista-precios li:hover {
+    background-color: #1c1d1d;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .li-filtro-principal {
+    display: block;
+  }
+  
+  .filtro h2 {
+    padding: 5px;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 20px;
+  }
+  .filtro h3 {
+    padding-left: 5px;
+  }
+  
+  .filtro-categorias {
+    margin: 15px 0px 0px 0px;
+    font-family: "Rubik", sans-serif;
+  }
+  
+  .titulo-categoria {
+    margin: 30px 0px 10px 0px;
+    font-size: larger;
+  }
+  
+  .categoria-filtro {
+    font-weight: 400;
+    margin: 0px 0px 0px 2px;
+    font-size: large;
+  }
+  
+  .filtro-categorias {
+    padding: 15px 5px 15px 5px;
+    margin-bottom: 5px;
+  }
+  .filtro-categorias p {
+    padding: 15px 5px 15px 5px;
+    margin-bottom: 5px;
+  }
+  
+  .filtro-categorias p:hover {
+    background-color: #1c1d1d;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .seleccionado {
+    background-color: #1c1d1d;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .productos {
+    padding: 10px;
+    border-radius: 10px;
+   
+  }
+  
+  
+  /** Parte productos **/
+  .producto {
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0px auto 5px auto;
+    width: 180px;
+    height: 355px;
+    transition: 0.5s;
+  }
+  
+  .producto img {
+    width: 200px;
+    height: 200px;
+    margin: 0px 0px 10px 0px;
+    border-radius: 8px;
+    transition: all 0.5s;
+  }
+  
+  
+  .producto:hover img {
+    filter: opacity(0.8);
+    transform: scale(1.1);
+  
+  }
+  
+  .producto:hover .add {
+    visibility: visible; /* crimson Antes */
+    border: solid 2px white;
+    border-radius: 5px;
+    padding: 12px;
+    width: 100%;
+    margin: 5px 0px 0px 0px;
+    cursor: pointer;
+    transition: 0.5s;
+    transform: scale(1.1);
+    background-color: rgb(32, 31, 31);
+  
+  }
+  
+  .add {
+    visibility: hidden;
+    transition: 0.4s;
+    background-color: white;
+    color:white;
+    border: none;
+    width: 100%;
+  }
+  
+  /* Dejar la caja con una altura fija asi los button quedan alineados*/
+  .caja-nombre {
+    height: 92px;
+    margin: 0px 0px 5px 0px;
+  }
+  
+  .nombre {
+    margin: 0px 0px 5px 0px;
+    padding: 5px;
+  }
+  
+  .producto p {
+    font-weight: 600;
+  }
+  
+  
+  .producto-filtrado{
+    /*visibility: hidden;
+    */
+  }
+  
+  .transiciones{
+    visibility: visible;
+    transition: 1.5s;
+    transform: scale(1.2);
+  }
+  
+  
+  input[type='range'],
+  input[type='range']::-webkit-slider-runnable-track,
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+  
+  input[type=range]::-webkit-slider-thumb {
+    background-color: #005CC8;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-top: -9px;
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    background-color: #777;
+    width: 15px;
+    height: 15px;
+    border: 3px solid #333;
+    border-radius: 50%;
+  }
+  
+  input[type=range]::-ms-thumb {
+    background-color: #777;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #333;
+    border-radius: 50%;
+  }
+  
+  input[type=range]::-webkit-slider-runnable-track {
+    background-color: #c7c5c5;
+    border-radius: 5px;
+    height: 6px;
+  }
+  
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    outline: none;
+  }
+  
+  input[type=range]::-moz-range-track {
+    background-color: #777;
+    height: 3px;
+  }
+  
+  input[type=range]::-ms-track {
+    background-color: #777;
+    height: 3px;
+  }
+  
+  input[type=range]::-ms-fill-lower {
+    background-color: HotPink
+  }
+  
+  input[type=range]::-ms-fill-upper {
+    background-color: black;
+  } 
+  
+  .input-precio {
+    width: 90%;
+  }
+  
+  .producto:hover .disabled {
+    background-color:#545557;
+  
+  }
+  .disabled {
+    background-color: #545557;
+  }
+  
+  /* Hacelo escalado sino no funciona PELOTUDO */
+  @media (max-width: 619px) {
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (min-width: 620px) {
+    .productos {
+      margin: 180px 0px 20px 0px;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: auto;
+    }
+  }
+  
+  @media (min-width: 750px) {
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      overflow: auto;
+    }
+    .producto {
+      width: 160px;
+      height: 285px;
+    }
+    
+    .producto img {
+      width: 170px;
+      height: 170px;
+    }
+  }
+  
+  @media (min-width: 920px) {
+    
+    .producto {
+      width: 170px;
+      height: 305px;
+    }
+    
+    .producto img {
+      width: 190px;
+      height: 190px;
+    }
+  }
+  
+  @media (min-width: 1000px) {
+    
+    .producto {
+      width: 190px;
+      height: 325px;
+    }
+    
+    .producto img {
+      width: 210px;
+      height: 210px;
+    }
+  }
+  /* Desde que es mayor a 1200px */
+  @media (min-width: 1200px) {
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      overflow: auto;
+    }
+    .producto {
+      width: 160px;
+      height: 305px;
+    }
+    
+    .producto img {
+      width: 190px;
+      height: 190px;
+    }
+  }
+  
+  @media (min-width: 1300px) {
+    .producto {
+      width: 170px;
+      height: 315px;
+    }
+    
+    .producto img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+  @media (min-width: 1480px) {
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      overflow: auto;
+    }
+  
+    .producto {
+      width: 220px;
+      height: 375px;
+    }
+    
+    .producto img {
+      width: 240px;
+      height: 240px;
+    }
+  }
+  
+  
+  @media (min-width: 1700px) {
+    .productos {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      overflow: auto;
+      gap: 15px;
+    }
+   
+    
+  }
+  
+  

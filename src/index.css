@@ -1,0 +1,206 @@
+  button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  button:hover {
+    border-color: #646cff;
+  }
+  button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+  
+  
+  /*** SECCION CONTENIDO PRINCIPAL ***/
+  
+  .banner {
+    background-position: center center;
+    background-size: cover;
+    height: 600px;
+  }
+  
+  
+  .primer-banner {
+      transition-timing-function: ease-out;
+      animation-delay: 2s, 4ms;
+      opacity: 1;
+      background-image: url("./img/adidas.png");
+      
+    }
+  
+  .segundo-banner {
+  
+    transition-timing-function: ease-out;
+    animation-delay: 2s, 4ms;
+    opacity: 1;
+    background-image: url("./img/adidas2.jpg");
+    display: none;
+  }
+  
+  .tercer-banner {
+    transition-timing-function: ease-out;
+    animation-delay: 2s, 4ms;
+    opacity: 1;
+    background-image: url("./img/runnin.jpg");
+    display: none;
+  }
+  
+  .cuarto-banner {
+    transition-timing-function: ease-out;
+    animation-delay: 2s, 4ms;
+    opacity: 1;
+    background-image: url("./img/portada4.jpg");
+    display: none;
+  }
+    
+  
+    
+    .contenido-principal {
+      margin: 10px 0px 30px 0px;
+    
+      /* background-color: rgb(10, 10, 10); 
+      box-shadow: 0px 0px 10px rgb(14, 13, 13);
+      */
+    }
+    
+    .productos-index {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px 0px 30px 0px;
+      border-radius: 10px;
+      width: 100%;
+      gap: 25px;
+    }
+    
+  
+    .categoria {
+      align-items:flex-end;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      background-color: rgb(246, 246, 246);
+      box-shadow: 1px 1px 5px rgb(175, 172, 172);
+      border-radius: 5px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-weight: 600;
+      height: 450px;
+      width: 100%;
+  
+  
+    }
+  
+    .categoria:hover {
+      filter: opacity(0.7);
+      box-shadow: 2px 2px 4px rgb(253, 251, 251);
+    }
+  
+    .nombre-categoria{
+      color: rgb(70, 67, 67);
+      font-family: 'Mulish', sans-serif;
+      font-size: 2px;
+      padding: 10px 0px 10px 0px;
+      text-align: center;
+      width: 260px;
+    }
+  
+    .categoria {
+      background-color: #ECEEF0;
+    }
+    
+    .categoria-1 {
+      background-image: url("./img/mochila3.jpg");
+      background-size: auto;
+      
+    }
+    .categoria-2 {
+      background-image: url("./img/champion4.png");
+      background-size: contain;
+   
+    }
+    .categoria-3 {
+      background-image: url("./img/gorro2.webp");
+      background-size: contain;
+    }
+    .categoria-4 {
+      background-size: auto;
+      background-image: url("https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/0c520e54f73843eb8e50af1500b2c987_9366/Adicolor_Classics_3-Stripes_Long-Sleeve_Top_Azul_IA4878_21_model.jpg");
+    }
+    
+    .categoria-5 {
+      background-image: url("./img/bandolera.jpg");
+    }
+    
+    .categoria h2 {
+      color:black;
+      border: 1px black solid;
+      padding: 12px;
+      font-size: 15px;
+      font-family: 'Mulish', sans-serif;
+      display: inline-block;
+    }
+    
+    /** Seccion Fotos de Instagram  **/
+    .seccion-fotos h2 {
+      margin: 0px 0px 10px 0px;
+    }
+    
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0px 0px 0px 0px;
+    }
+    
+    .div-img-insta {
+      height: 370px;
+      width: 268px;
+    }
+    
+    .img-insta {
+      height: 370px;
+      width: 268px;
+    }
+  
+  
+    @media (min-width: 620px) {
+      .banner {
+        background-repeat: no-repeat;
+        height: 1000px;
+        margin-bottom: 50px;
+      }
+      .productos-index {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    
+  
+    @media (min-width: 1200px) {
+      .productos-index {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+  
+    @media (min-width: 1380px) {
+      .categoria {
+        height: 700px;
+        
+      }
+      .categoria-4 {
+        background-size: cover;
+      }
+    }
+    
+  
