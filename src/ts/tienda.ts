@@ -1,9 +1,7 @@
-import { createElementHtml, mostrarNumeroArticulosHtml } from "./helpers";
+import { createElementHtml, mostrarNumeroArticulosHtml } from "./helper-tienda";
+import { getProductosLocal, ids } from "./helpers";
 
-export let productList : Producto[] = []
-export let arrayIds : Array<number> = []
-
-interface Producto {
+export interface Producto {
     id: number;
     name: string;
     image: string;
@@ -13,17 +11,29 @@ interface Producto {
     cantidad: number;
 }
 
+interface Order {
+  items: Producto[];
+  // Otras propiedades de la orden si las tienes
+}
+
+// Inicializar variables y estructuras de datos
+let productList: Producto[] = []; // Debes inicializar productList con tus productos
+let arrayIds : Array<number> = []
+let order: Order = { items: [] };
+
+let productoLocalStorage: Producto[] = []; // Debes inicializar productList con tus productos
+
 const productosHTML = document.querySelector(".productos");
 const productosCarrito = document.querySelector(".productos-carrito");
 
 
 
 function addCarritoHTML(product : Producto) {
-  let { image, name, price, id, cantidad } = product
+  let { image, name, price, id } = product
   console.log(product)
 
   // Caja Producto
-  const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : image })
+  const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : `../${image}` })
     
   // Seccion Contenido
   const divContenidoCarrito = createElementHtml({element : "div", classname : ["div-contenido-carrito", "centrar-texto"] })
@@ -58,7 +68,8 @@ function addCarritoHTML(product : Producto) {
 
 function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
-    const { id, image, name, price } = registro;
+    let { id, image, name, price } = registro;
+    if(image.includes("img/")) image = `../${image}`
 
     const divProducto = createElementHtml({
       element: "div",
@@ -102,8 +113,45 @@ function renderProductosHtml(registros: Producto[]) {
   });
 }
  
-function agregarProducto ( value : number) {
+function agregarProducto ( productId : number) {
+  const product = productList.find((p) => p.id === productId);
 
+  if (!product) {
+    console.log("Producto no encontrado");
+    return;
+  }
+
+    // Obtener información de IDs desde el almacenamiento local
+    const getIdsJSON = localStorage.getItem("productoIds");
+    const getIds = getIdsJSON ? JSON.parse(getIdsJSON) : [];
+  
+    // Continuar con el procesamiento de IDs
+    if (getIds) {
+      getIds.push(productId);
+      product.stock--;
+      product.cantidad = 1;
+      order.items.push(product);
+  
+      // Actualizar el almacenamiento local con los IDs
+      localStorage.setItem(`productoIds`, JSON.stringify(getIds));
+    }
+ 
+      
+    // Obtener información del producto desde el almacenamiento local
+   const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
+   const getProductActualizar = getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) : null;
+   // Comprobar si getProductActualizar no es nulo ni indefinido
+   if (!getProductActualizar)  {
+    
+    ids.push(productId)
+    product.stock--
+    product.cantidad = 1
+    order.items.push(product)
+    localStorage.setItem(`producto-${productId}`, JSON.stringify(product));
+    localStorage.setItem(`productoIds`, JSON.stringify(ids));
+   } 
+   // Agregar el producto al carrito en la interfaz
+   addCarritoHTML(product);
 }
 
 
@@ -115,11 +163,22 @@ export async function fetchProducts() : Promise <Producto[]> {
     productList = registros;
     console.log(productList)
     return productList;
-  }
+}
 
-  window.onload = async () => {
-    console.log("hola")
-    const productos = await fetchProducts()
-    renderProductosHtml(productos)
-    console.log(productos)
-  }
+window.onload = async () => {
+  console.log("hola")
+  const productos = await fetchProducts()
+  renderProductosHtml(productos)
+  //console.log(productos)
+  
+  new Promise (function(resolve, reject) {
+    resolve( getProductosLocal())
+  })
+  .then(function(e) {
+    //mostrarSubtotalHtml()
+    mostrarNumeroArticulosHtml()
+    //borrarItemCarrito()
+    //eventoRestarEnTodos() 
+    //eventoSumarEnTodos()
+  })
+}

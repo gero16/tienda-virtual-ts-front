@@ -31,7 +31,7 @@
       transition-timing-function: ease-out;
       animation-delay: 2s, 4ms;
       opacity: 1;
-      background-image: url("./img/adidas.png");
+      background-image: url("../img/adidas.png");
       
     }
   
@@ -40,7 +40,7 @@
     transition-timing-function: ease-out;
     animation-delay: 2s, 4ms;
     opacity: 1;
-    background-image: url("./img/adidas2.jpg");
+    background-image: url("../img/adidas2.jpg");
     display: none;
   }
   
@@ -48,7 +48,7 @@
     transition-timing-function: ease-out;
     animation-delay: 2s, 4ms;
     opacity: 1;
-    background-image: url("./img/runnin.jpg");
+    background-image: url("../img/runnin.jpg");
     display: none;
   }
   
@@ -56,7 +56,7 @@
     transition-timing-function: ease-out;
     animation-delay: 2s, 4ms;
     opacity: 1;
-    background-image: url("./img/portada4.jpg");
+    background-image: url("../img/portada4.jpg");
     display: none;
   }
     
@@ -119,17 +119,17 @@
     }
     
     .categoria-1 {
-      background-image: url("./img/mochila3.jpg");
+      background-image: url("../img/mochila3.jpg");
       background-size: auto;
       
     }
     .categoria-2 {
-      background-image: url("./img/champion4.png");
+      background-image: url("../img/champion4.png");
       background-size: contain;
    
     }
     .categoria-3 {
-      background-image: url("./img/gorro2.webp");
+      background-image: url("../img/gorro2.webp");
       background-size: contain;
     }
     .categoria-4 {
@@ -138,7 +138,7 @@
     }
     
     .categoria-5 {
-      background-image: url("./img/bandolera.jpg");
+      background-image: url("../img/bandolera.jpg");
     }
     
     .categoria h2 {
