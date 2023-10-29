@@ -1,4 +1,5 @@
 import { createElementHtml } from "./helper-tienda";
+import { deshabilitarBtnAgregar } from "./tienda";
 
 export interface Producto {
   id: number;
@@ -52,6 +53,7 @@ export function llenarIds () {
 
 export function calcularSubTotalProducto(product : Producto) {
   let subTotalProducto = product.cantidad * product.price
+  console.log(subTotalProducto)
   return subTotalProducto
 }
 
@@ -84,7 +86,7 @@ export function htmlCarritoLocalStorage () {
     // Seccion Contenido
       const divContenidoCarrito = createElementHtml({element : "div", classname : ["div-contenido-carrito", "centrar-texto"] })
       const nombreProducto = createElementHtml({element: "p", content : name})
-      const precioProducto = createElementHtml({element : "p", content : `$${price}`, dataset: `price-$${id}`})
+      const precioProducto = createElementHtml({element : "p", content : `$${price}`, dataset: `price-${id}`})
       divContenidoCarrito.append(nombreProducto, precioProducto);
 
       // Seccion Stock
@@ -94,7 +96,7 @@ export function htmlCarritoLocalStorage () {
       const inputCarrito = createElementHtml({ element : "input", classname :  ["input-carrito", "centrar-texto"], dataset : `input-${id}`}) as HTMLInputElement;
       if (inputCarrito) {
         // Aunque los valores numéricos pueden ser usados en los campos de entrada numérica, JavaScript espera que los valores de entrada de formularios se almacenen como cadenas. 
-        const numericValue = 1; // Asigna el valor numérico que desees
+        const numericValue = cantidad; // Asigna el valor numérico que desees
         inputCarrito.value = numericValue.toString(); // Convierte el valor a una cadena
       }
       
@@ -123,14 +125,12 @@ export function htmlCarritoLocalStorage () {
   mostrarSubtotalHtml()
 }
 
-function deshabilitarBtnAgregar (id : string, estado : boolean) {
-  let btnAgregarCarrito = document.querySelector(`[data-id="${ id }"]`) as HTMLButtonElement
-  btnAgregarCarrito.disabled = true;
-  btnAgregarCarrito.classList.add("disabled")
-  if(estado === false) {
-    btnAgregarCarrito.disabled = false;
-    btnAgregarCarrito.classList.remove("disabled")
-  }
+export function mostrarNumeroArticulosHtml () {
+  const getIdsJSON =localStorage.getItem("productoIds")
+  const getIds =  getIdsJSON ? JSON.parse(getIdsJSON) : null
+  if(getIds) numbCompras.textContent = getIds.length
+  else numbCompras.textContent = "0" 
+ 
 }
 
 export function traerIdsLocalStorage (ids : Array<string>) {
@@ -140,11 +140,73 @@ export function traerIdsLocalStorage (ids : Array<string>) {
       if(productoLocal) {
         datosProductosAgregados.push(productoLocal)
         // Deshabilitar agregar producto 
-        deshabilitarBtnAgregar(id, false)
+        deshabilitarBtnAgregar(id, true)
       }
       else return;
   })
 }
+
+export function borrarItemCarrito() {
+  const btnBorrar = document.querySelectorAll('.btn-borrar') as NodeListOf<HTMLElement>;
+
+  for (let i = 0; i < btnBorrar.length; i++) {
+    btnBorrar[i].addEventListener('click', (e) => {
+      const obtenerSubtotal = document.querySelector(".sub-total") as HTMLElement | null;
+      const subTotalHtml = document.querySelector(".sub-total") as HTMLElement;
+      
+      if (obtenerSubtotal) {
+        const obtenerSubtotalText = obtenerSubtotal.textContent?.split("$");
+        const subtotal = obtenerSubtotalText ? parseInt(obtenerSubtotalText[1]) : 0;
+        console.log(subtotal);
+        const target = e.target as HTMLElement; 
+        if(target && target.dataset) {
+          let id = (target.dataset.id as string).split("-")
+          
+                  new Promise(function(resolve, reject) {
+                    resolve(restarSubtotal(id));
+                  })
+                  .then(function() {
+                    const productoElement = document.querySelector(`[data-id="producto-${id[1]}"]`) as HTMLElement | null;
+                    if (productoElement) {
+                      productoElement.parentNode?.removeChild(productoElement);
+                    }
+          
+                    localStorage.removeItem(`producto-${id[1]}`);
+                    const getIdsJSON = localStorage.getItem("productoIds");
+                    if (getIdsJSON) {
+                      const getIds = JSON.parse(getIdsJSON);
+                      const filteredIds = getIds.filter((elementId: number) => elementId !== Number(id[1]));
+                      console.log(filteredIds);
+                      localStorage.removeItem("productoIds");
+                      if (filteredIds.length > 0) {
+                        localStorage.setItem("productoIds", JSON.stringify(filteredIds));
+                      }
+                    }
+          
+                    mostrarNumeroArticulosHtml();
+                    if (location.pathname === "/tienda.html") {
+                      deshabilitarBtnAgregar(id[1], false);
+                    }
+                  });
+                }
+          
+                function restarSubtotal(id: string[]) {
+                  const obtenerCosto = document.querySelector(`[data-id="price-${id[1]}"]`) as HTMLElement;
+                  console.log(obtenerCosto);
+                  if (obtenerCosto) {
+                    const obtenerCostoText = obtenerCosto.textContent?.split("$");
+                    if (obtenerCostoText) {
+                      const costo = parseInt(obtenerCostoText[1]);
+                      const resta = subtotal - costo;
+                      subTotalHtml.innerHTML = `$${resta}`;
+                    }
+                  }
+                }
+              }
+            });
+          }
+        }
+
 
 
 export function getProductosLocal() {

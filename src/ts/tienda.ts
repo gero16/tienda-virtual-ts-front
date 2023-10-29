@@ -1,5 +1,5 @@
 import { createElementHtml, mostrarNumeroArticulosHtml } from "./helper-tienda";
-import { getProductosLocal, ids } from "./helpers";
+import { calcularSubTotalProducto, getProductosLocal,  mostrarSubtotalHtml } from "./helpers";
 
 export interface Producto {
     id: number;
@@ -20,7 +20,7 @@ interface Order {
 let productList: Producto[] = []; // Debes inicializar productList con tus productos
 let arrayIds : Array<number> = []
 let order: Order = { items: [] };
-
+let ids : Array<string> = []
 let productoLocalStorage: Producto[] = []; // Debes inicializar productList con tus productos
 
 const productosHTML = document.querySelector(".productos");
@@ -65,6 +65,75 @@ function addCarritoHTML(product : Producto) {
 
   mostrarNumeroArticulosHtml()
 }
+
+
+
+export function eventoSumarEnTodos() {
+  const inputCarrito = document.querySelectorAll(".input-carrito") as NodeListOf<HTMLInputElement>;
+  const btnsSumar = document.querySelectorAll(".sumar") as NodeListOf<HTMLSpanElement>;
+  console.log("sumar en todos");
+
+  btnsSumar.forEach((btnSumar, index) => {
+    btnSumar.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement; 
+
+      if (inputCarrito[index] && target && target.dataset) {
+        inputCarrito[index].value = String(Number(inputCarrito[index].value) + 1);
+        const idProducto = (target.dataset.id as string).split("-");
+        const productId = idProducto[1];
+
+        const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
+        if (getProductActualizarJSON) {
+          const getProductActualizar = JSON.parse(getProductActualizarJSON);
+          getProductActualizar.cantidad = Number(inputCarrito[index].value);
+          localStorage.setItem(`producto-${productId}`, JSON.stringify(getProductActualizar));
+
+          const subTotalProducto = calcularSubTotalProducto(getProductActualizar);
+
+          const inputPrecio = document.querySelector(`[data-id="price-${productId}"]`);
+          if (inputPrecio) {
+            inputPrecio.innerHTML = `$${subTotalProducto}`;
+          }
+
+          mostrarSubtotalHtml();
+        }
+      }
+    });
+  });
+}
+
+
+export function eventoRestarEnTodos() {
+  const inputCarrito = document.querySelectorAll(".input-carrito") as NodeListOf <HTMLInputElement>;
+  const btnsRestar = document.querySelectorAll(".restar") as NodeListOf <HTMLSpanElement>;
+  console.log("sumar en todos");
+
+  btnsRestar.forEach((btnSumar, index) => {
+    btnSumar.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement; 
+
+      if (inputCarrito[index] && target && target.dataset) {
+        inputCarrito[index].value = String(Number(inputCarrito[index].value) - 1);
+        const idProducto = (target.dataset.id as string).split("-");
+        const productId = idProducto[1];
+
+        const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
+        if (getProductActualizarJSON) {
+          const getProductActualizar = JSON.parse(getProductActualizarJSON);
+          getProductActualizar.cantidad = Number(inputCarrito[index].value);
+          localStorage.setItem(`producto-${productId}`, JSON.stringify(getProductActualizar));
+          const subTotalProducto = calcularSubTotalProducto(getProductActualizar);
+          const inputPrecio = document.querySelector(`[data-id="price-${productId}"]`);
+
+          if (inputPrecio) inputPrecio.innerHTML = `$${subTotalProducto}`;
+   
+          mostrarSubtotalHtml();
+        }
+      }
+    });
+  });
+}
+
 
 function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
@@ -112,46 +181,50 @@ function renderProductosHtml(registros: Producto[]) {
     });
   });
 }
+
+export function deshabilitarBtnAgregar (id : string, estado : boolean) {
+  let btnAgregarCarrito = document.querySelector(`[data-id="${ id }"]`) as HTMLButtonElement
+  if(estado === true) {
+    btnAgregarCarrito.disabled = true;
+    btnAgregarCarrito.classList.add("disabled")
+  }
+  
+  if(estado === false) {
+    btnAgregarCarrito.disabled = false;
+    btnAgregarCarrito.classList.remove("disabled")
+  }
+}
  
 function agregarProducto ( productId : number) {
   const product = productList.find((p) => p.id === productId);
 
-  if (!product) {
-    console.log("Producto no encontrado");
-    return;
-  }
+  if (!product) return;
+  // Obtener información de IDs desde el almacenamiento local
+  const getIdsJSON = localStorage.getItem("productoIds");
+  const getIds = getIdsJSON ? JSON.parse(getIdsJSON) : [];
+  if(getIds) ids = getIds
 
-    // Obtener información de IDs desde el almacenamiento local
-    const getIdsJSON = localStorage.getItem("productoIds");
-    const getIds = getIdsJSON ? JSON.parse(getIdsJSON) : [];
-  
-    // Continuar con el procesamiento de IDs
-    if (getIds) {
-      getIds.push(productId);
-      product.stock--;
-      product.cantidad = 1;
-      order.items.push(product);
-  
-      // Actualizar el almacenamiento local con los IDs
-      localStorage.setItem(`productoIds`, JSON.stringify(getIds));
-    }
- 
-      
-    // Obtener información del producto desde el almacenamiento local
+  // Obtener información del producto desde el almacenamiento local
    const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
    const getProductActualizar = getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) : null;
-   // Comprobar si getProductActualizar no es nulo ni indefinido
-   if (!getProductActualizar)  {
-    
+   
+   if(!getProductActualizar) {
+    // Si hay otras id de otros productos
     ids.push(productId.toString())
     product.stock--
     product.cantidad = 1
     order.items.push(product)
     localStorage.setItem(`producto-${productId}`, JSON.stringify(product));
     localStorage.setItem(`productoIds`, JSON.stringify(ids));
-   } 
-   // Agregar el producto al carrito en la interfaz
-   addCarritoHTML(product);
+
+    addCarritoHTML(product);
+    deshabilitarBtnAgregar(productId.toString(), true);
+  }
+   
+   eventoSumarEnTodos()
+   eventoRestarEnTodos()
+   mostrarNumeroArticulosHtml()
+   mostrarSubtotalHtml()
 }
 
 
@@ -178,7 +251,7 @@ window.onload = async () => {
     //mostrarSubtotalHtml()
     mostrarNumeroArticulosHtml()
     //borrarItemCarrito()
-    //eventoRestarEnTodos() 
-    //eventoSumarEnTodos()
+    eventoRestarEnTodos() 
+    eventoSumarEnTodos()
   })
 }

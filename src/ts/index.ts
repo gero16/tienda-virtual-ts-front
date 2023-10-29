@@ -1,5 +1,6 @@
-import { mostrarNumeroArticulosHtml } from "./helper-tienda"
+import { eventoRestar, mostrarNumeroArticulosHtml } from "./helper-tienda"
 import { getProductosLocal } from "./helpers"
+import { eventoRestarEnTodos, eventoSumarEnTodos } from "./tienda"
 
 console.log("hola")
 
@@ -27,8 +28,9 @@ window.onload = () => {
       //mostrarSubtotalHtml()
       mostrarNumeroArticulosHtml()
       //borrarItemCarrito()
-      //eventoRestarEnTodos() 
-      //eventoSumarEnTodos()
+      eventoRestarEnTodos() 
+      eventoSumarEnTodos()
+    
     })
   }
   

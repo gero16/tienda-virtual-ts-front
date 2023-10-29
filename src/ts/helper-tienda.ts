@@ -1,3 +1,5 @@
+import { Producto, calcularSubTotalProducto, mostrarSubtotalHtml } from "./helpers";
+
 export let productList = []
 export let arrayIds = []
 
@@ -78,4 +80,70 @@ try {
       }
   }
 
+}
+
+export function eventoSumar(id: string) {
+  const mas = document.querySelector(`[data-id="sumar-${id}"]`) as HTMLElement | null;
+
+  if (mas) {
+    mas.addEventListener("click", () => {
+      const input = document.querySelector(`[data-id="input-${id}"]`) as HTMLInputElement | null;
+
+      if (input) {
+        let valorInput = Number(input.value);
+        valorInput++;
+
+        let getProductActualizarJSON = localStorage.getItem(`producto-${id}`);
+        let getProductActualizar =  getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) as Producto : null
+
+        if (getProductActualizar) {
+          getProductActualizar.cantidad = valorInput;
+          localStorage.removeItem(`producto-${id}`);
+          localStorage.setItem(`producto-${id}`, JSON.stringify(getProductActualizar));
+
+          const subTotalProducto  = calcularSubTotalProducto(getProductActualizar);
+          const subTotalPorProducto = document.querySelector(`[data-id="price-${id}"]`) as HTMLElement | null;
+          
+          if (subTotalPorProducto) subTotalPorProducto.innerHTML = `$${subTotalProducto}`;
+
+          mostrarSubtotalHtml();
+        }
+      }
+    });
+  }
+}
+
+export function eventoRestar(id: string) {
+  const menos = document.querySelector(`[data-id="restar-${id}"]`) as HTMLElement | null;
+
+  if (menos) {
+    menos.addEventListener("click", () => {
+      const input = document.querySelector(`[data-id="input-${id}"]`) as HTMLInputElement | null;
+
+      if (input) {
+        console.log(input.value);
+        let valorInput = Number(input.value);
+        console.log(valorInput);
+        valorInput--;
+
+        let getProductActualizarJSON = localStorage.getItem(`producto-${id}`);
+        let getProductActualizar =  getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) as Producto : null
+        console.log(getProductActualizar)
+
+        if (getProductActualizar) {
+          getProductActualizar.cantidad = valorInput;
+          localStorage.removeItem(`producto-${id}`);
+          localStorage.setItem(`producto-${id}`, JSON.stringify(getProductActualizar));
+          console.log(getProductActualizar);
+
+          const subTotalProducto  = calcularSubTotalProducto(getProductActualizar);
+          const subTotalPorProducto = document.querySelector(`[data-id="price-${id}"]`) as HTMLElement | null;
+          
+          if (subTotalPorProducto) subTotalPorProducto.innerHTML = `$${subTotalProducto}`;
+
+          mostrarSubtotalHtml();
+        }
+      }
+    });
+  }
 }
