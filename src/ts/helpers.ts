@@ -13,7 +13,7 @@ export interface Producto {
 export let total : number = 0 
 export let subTotal : number = 0
 export let sumaSub : number = 0
-export let ids : Array<number> = []
+export let ids : Array<string> = []
 export let datosProductosAgregados : Array<Producto> = []
 export let articulos : number = 0
 
@@ -40,9 +40,13 @@ iconoCarrito.addEventListener("click", () => {
   });
 
 export function llenarIds () {
-  productList.forEach(element => {
-    arrayIds.push(element.id.toString())
-  });
+  const getIdsJSON = localStorage.getItem(`productoIds`);
+  const getIds : string[] | null = getIdsJSON ? JSON.parse(getIdsJSON) : null;
+  if(getIds) {
+    getIds.forEach((id : string )=> {
+      arrayIds.push(id.toString())
+    });
+  }
   return arrayIds;
 }
 
@@ -70,13 +74,12 @@ export function mostrarSubtotalHtml () {
 export function htmlCarritoLocalStorage () {
   // De donde salen los datos de datosProductosAgregadooooos!!!
   if (datosProductosAgregados) { 
-    console.log(datosProductosAgregados)
     const divProductoVacio = document.querySelector(".producto-vacio") as HTMLDivElement
     divProductoVacio.innerHTML = ""
 
     datosProductosAgregados.forEach((product) => {
       let { image, name, price, id, cantidad } = product
-      const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : image })
+      const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : `../${image}` })
       
     // Seccion Contenido
       const divContenidoCarrito = createElementHtml({element : "div", classname : ["div-contenido-carrito", "centrar-texto"] })
@@ -108,12 +111,11 @@ export function htmlCarritoLocalStorage () {
       // Me aparecen 2 producto-carrito's creados antes en el HTML
       
       numbCompras.textContent = articulos.toString();
-      sumaSub = product.cantidad * product.price
-      const htmlPrice = document.querySelector(`[data-id="price-${product.id}"]`) as HTMLElement
-      htmlPrice.textContent=  `$${sumaSub}`;
+      sumaSub = cantidad * price
+      const htmlPrice = document.querySelector(`[data-id="price-${id}"]`) as HTMLParagraphElement
+      htmlPrice ? htmlPrice.textContent=  `$${sumaSub}` : ""
       total = total + sumaSub
       subTotalHtml.innerHTML = `$${total}`;
-      
     });
   } 
 
@@ -132,25 +134,21 @@ function deshabilitarBtnAgregar (id : string, estado : boolean) {
 }
 
 export function traerIdsLocalStorage (ids : Array<string>) {
-  //console.log(ids)
   ids.forEach(id => {
-      const dataJSON = localStorage.getItem(`producto-${ id }`);
-      const data = dataJSON ? JSON.parse(dataJSON) : null;
-      if(data) {
-        console.log(data)
-        datosProductosAgregados.push(data)
+      const productoLocalJSON = localStorage.getItem(`producto-${ id }`);
+      const productoLocal = productoLocalJSON ? JSON.parse(productoLocalJSON) : null;
+      if(productoLocal) {
+        datosProductosAgregados.push(productoLocal)
         // Deshabilitar agregar producto 
         deshabilitarBtnAgregar(id, false)
       }
       else return;
   })
-  
 }
 
 
 export function getProductosLocal() {
   llenarIds();
-  
   const promise = new Promise(function (resolve, reject) {
     resolve(traerIdsLocalStorage(arrayIds))
   })

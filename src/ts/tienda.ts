@@ -143,7 +143,7 @@ function agregarProducto ( productId : number) {
    // Comprobar si getProductActualizar no es nulo ni indefinido
    if (!getProductActualizar)  {
     
-    ids.push(productId)
+    ids.push(productId.toString())
     product.stock--
     product.cantidad = 1
     order.items.push(product)
