@@ -18,10 +18,8 @@ interface Order {
 
 // Inicializar variables y estructuras de datos
 let productList: Producto[] = []; // Debes inicializar productList con tus productos
-let arrayIds : Array<number> = []
 let order: Order = { items: [] };
 let ids : Array<string> = []
-let productoLocalStorage: Producto[] = []; // Debes inicializar productList con tus productos
 
 const productosHTML = document.querySelector(".productos");
 const productosCarrito = document.querySelector(".productos-carrito");
@@ -66,6 +64,39 @@ function addCarritoHTML(product : Producto) {
   mostrarNumeroArticulosHtml()
 }
 
+function agregarProducto ( productId : number) {
+  const product = productList.find((p) => p.id === productId);
+
+  if (!product) return;
+  // Obtener información de IDs desde el almacenamiento local
+  const getIdsJSON = localStorage.getItem("productoIds");
+  const getIds = getIdsJSON ? JSON.parse(getIdsJSON) : [];
+  if(getIds) ids = getIds
+
+  // Obtener información del producto desde el almacenamiento local
+   const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
+   const getProductActualizar = getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) : null;
+   
+   if(!getProductActualizar) {
+    // Si hay otras id de otros productos
+    ids.push(productId.toString())
+    product.stock--
+    product.cantidad = 1
+    order.items.push(product)
+    localStorage.setItem(`producto-${productId}`, JSON.stringify(product));
+    localStorage.setItem(`productoIds`, JSON.stringify(ids));
+
+    addCarritoHTML(product);
+    deshabilitarBtnAgregar(productId.toString(), true);
+  }
+   
+   eventoSumarEnTodos()
+   eventoRestarEnTodos()
+   mostrarNumeroArticulosHtml()
+   mostrarSubtotalHtml()
+   borrarItemCarrito()
+}
+
 
 
 export function eventoSumarEnTodos() {
@@ -106,8 +137,6 @@ export function eventoSumarEnTodos() {
 export function eventoRestarEnTodos() {
   const inputCarrito = document.querySelectorAll(".input-carrito") as NodeListOf <HTMLInputElement>;
   const btnsRestar = document.querySelectorAll(".restar") as NodeListOf <HTMLSpanElement>;
-  console.log("sumar en todos");
-
   btnsRestar.forEach((btnSumar, index) => {
     btnSumar.addEventListener("click", (e) => {
       const target = e.target as HTMLElement; 
@@ -195,37 +224,6 @@ export function deshabilitarBtnAgregar (id : string, estado : boolean) {
   }
 }
  
-function agregarProducto ( productId : number) {
-  const product = productList.find((p) => p.id === productId);
-
-  if (!product) return;
-  // Obtener información de IDs desde el almacenamiento local
-  const getIdsJSON = localStorage.getItem("productoIds");
-  const getIds = getIdsJSON ? JSON.parse(getIdsJSON) : [];
-  if(getIds) ids = getIds
-
-  // Obtener información del producto desde el almacenamiento local
-   const getProductActualizarJSON = localStorage.getItem(`producto-${productId}`);
-   const getProductActualizar = getProductActualizarJSON ? JSON.parse(getProductActualizarJSON) : null;
-   
-   if(!getProductActualizar) {
-    // Si hay otras id de otros productos
-    ids.push(productId.toString())
-    product.stock--
-    product.cantidad = 1
-    order.items.push(product)
-    localStorage.setItem(`producto-${productId}`, JSON.stringify(product));
-    localStorage.setItem(`productoIds`, JSON.stringify(ids));
-
-    addCarritoHTML(product);
-    deshabilitarBtnAgregar(productId.toString(), true);
-  }
-   
-   eventoSumarEnTodos()
-   eventoRestarEnTodos()
-   mostrarNumeroArticulosHtml()
-   mostrarSubtotalHtml()
-}
 
 
 export async function fetchProducts() : Promise <Producto[]> {
