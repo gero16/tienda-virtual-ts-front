@@ -173,9 +173,10 @@ export function borrarItemCarrito() {
           
                     localStorage.removeItem(`producto-${id[1]}`);
                     const getIdsJSON = localStorage.getItem("productoIds");
+                    console.log(getIdsJSON)
                     if (getIdsJSON) {
                       const getIds = JSON.parse(getIdsJSON);
-                      const filteredIds = getIds.filter((elementId: number) => elementId !== Number(id[1]));
+                      const filteredIds = getIds.filter((elementId: string) => elementId !== (id[1]));
                       console.log(filteredIds);
                       localStorage.removeItem("productoIds");
                       if (filteredIds.length > 0) {
@@ -205,9 +206,7 @@ export function borrarItemCarrito() {
               }
             });
           }
-        }
-
-
+}
 
 export function getProductosLocal() {
   llenarIds();

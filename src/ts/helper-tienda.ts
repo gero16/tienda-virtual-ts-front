@@ -1,4 +1,5 @@
 import { Producto, calcularSubTotalProducto, mostrarSubtotalHtml } from "./helpers";
+import { deshabilitarBtnAgregar } from "./tienda";
 
 export let productList = []
 export let arrayIds = []
@@ -147,3 +148,4 @@ export function eventoRestar(id: string) {
     });
   }
 }
+

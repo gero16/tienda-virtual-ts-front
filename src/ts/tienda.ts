@@ -1,5 +1,5 @@
 import { createElementHtml, mostrarNumeroArticulosHtml } from "./helper-tienda";
-import { calcularSubTotalProducto, getProductosLocal,  mostrarSubtotalHtml } from "./helpers";
+import { borrarItemCarrito, calcularSubTotalProducto, getProductosLocal,  mostrarSubtotalHtml } from "./helpers";
 
 export interface Producto {
     id: number;
@@ -188,7 +188,7 @@ export function deshabilitarBtnAgregar (id : string, estado : boolean) {
     btnAgregarCarrito.disabled = true;
     btnAgregarCarrito.classList.add("disabled")
   }
-  
+
   if(estado === false) {
     btnAgregarCarrito.disabled = false;
     btnAgregarCarrito.classList.remove("disabled")
@@ -250,8 +250,9 @@ window.onload = async () => {
   .then(function(e) {
     //mostrarSubtotalHtml()
     mostrarNumeroArticulosHtml()
-    //borrarItemCarrito()
+    borrarItemCarrito()
     eventoRestarEnTodos() 
     eventoSumarEnTodos()
+  
   })
 }
