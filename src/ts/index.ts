@@ -1,4 +1,4 @@
-import { eventoRestar, mostrarNumeroArticulosHtml } from "./helper-tienda"
+import { mostrarNumeroArticulosHtml } from "./helper-tienda"
 import { getProductosLocal } from "./helpers"
 import { eventoRestarEnTodos, eventoSumarEnTodos } from "./tienda"
 
@@ -21,10 +21,10 @@ iconoCarrito.addEventListener("click", () => {
 
   
 window.onload = () => {
-    new Promise (function(resolve, reject) {
+    new Promise (function(resolve) {
       resolve( getProductosLocal())
     })
-    .then(function(e) {
+    .then(function() {
       //mostrarSubtotalHtml()
       mostrarNumeroArticulosHtml()
       //borrarItemCarrito()

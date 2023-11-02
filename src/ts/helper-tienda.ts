@@ -1,19 +1,15 @@
 import { Producto, calcularSubTotalProducto, mostrarSubtotalHtml } from "./helpers";
-import { deshabilitarBtnAgregar } from "./tienda";
+
 
 export let productList = []
 export let arrayIds = []
 
 export let total = 0;
 export let subTotal = 0;
-let sumaSub = 0;
-let articulos = 0;
-let datosProductosAgregados = []
 
 
-const productosCarrito = document.querySelector(".productos-carrito");
 const numbCompras = document.querySelector('.numero-compras')
-const subTotalHtml = document.querySelector('.sub-total')
+
 
 interface ElementOptions {
     element: string;

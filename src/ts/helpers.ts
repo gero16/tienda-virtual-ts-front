@@ -18,12 +18,10 @@ export let ids : Array<string> = []
 export let datosProductosAgregados : Array<Producto> = []
 export let articulos : number = 0
 
-const productosHTML = document.querySelector(".productos") as HTMLDivElement
 const productosCarrito = document.querySelector(".productos-carrito") as HTMLDListElement
 const numbCompras = document.querySelector('.numero-compras') as HTMLSpanElement
 const subTotalHtml = document.querySelector('.sub-total') as HTMLParagraphElement
 
-const productList: Producto[] = []; // Debes inicializar productList con tus productos
 const arrayIds: string[] = [];
 
 const carritoHTML = document.querySelector(".carritoHTML") as HTMLDivElement
@@ -53,7 +51,6 @@ export function llenarIds () {
 
 export function calcularSubTotalProducto(product : Producto) {
   let subTotalProducto = product.cantidad * product.price
-  console.log(subTotalProducto)
   return subTotalProducto
 }
 
@@ -162,55 +159,55 @@ export function borrarItemCarrito() {
         if(target && target.dataset) {
           let id = (target.dataset.id as string).split("-")
           
-                  new Promise(function(resolve, reject) {
-                    resolve(restarSubtotal(id));
-                  })
-                  .then(function() {
-                    const productoElement = document.querySelector(`[data-id="producto-${id[1]}"]`) as HTMLElement | null;
-                    if (productoElement) {
-                      productoElement.parentNode?.removeChild(productoElement);
-                    }
-          
-                    localStorage.removeItem(`producto-${id[1]}`);
-                    const getIdsJSON = localStorage.getItem("productoIds");
-                    console.log(getIdsJSON)
-                    if (getIdsJSON) {
-                      const getIds = JSON.parse(getIdsJSON);
-                      const filteredIds = getIds.filter((elementId: string) => elementId !== (id[1]));
-                      console.log(filteredIds);
-                      localStorage.removeItem("productoIds");
-                      if (filteredIds.length > 0) {
-                        localStorage.setItem("productoIds", JSON.stringify(filteredIds));
-                      }
-                    }
-          
-                    mostrarNumeroArticulosHtml();
-                    if (location.pathname === "/tienda.html") {
-                      deshabilitarBtnAgregar(id[1], false);
-                    }
-                  });
+            new Promise(function(resolve) {
+              resolve(restarSubtotal(id));
+            })
+            .then(function() {
+              const productoElement = document.querySelector(`[data-id="producto-${id[1]}"]`) as HTMLElement | null;
+              if (productoElement) {
+                productoElement.parentNode?.removeChild(productoElement);
+              }
+    
+              localStorage.removeItem(`producto-${id[1]}`);
+              const getIdsJSON = localStorage.getItem("productoIds");
+              console.log(getIdsJSON)
+              if (getIdsJSON) {
+                const getIds = JSON.parse(getIdsJSON);
+                const filteredIds = getIds.filter((elementId: string) => elementId !== (id[1]));
+                console.log(filteredIds);
+                localStorage.removeItem("productoIds");
+                if (filteredIds.length > 0) {
+                  localStorage.setItem("productoIds", JSON.stringify(filteredIds));
                 }
-          
-                function restarSubtotal(id: string[]) {
-                  const obtenerCosto = document.querySelector(`[data-id="price-${id[1]}"]`) as HTMLElement;
-                  console.log(obtenerCosto);
-                  if (obtenerCosto) {
-                    const obtenerCostoText = obtenerCosto.textContent?.split("$");
-                    if (obtenerCostoText) {
-                      const costo = parseInt(obtenerCostoText[1]);
-                      const resta = subtotal - costo;
-                      subTotalHtml.innerHTML = `$${resta}`;
-                    }
-                  }
-                }
+              }
+    
+              mostrarNumeroArticulosHtml();
+              if (location.pathname === "/tienda.html") {
+                deshabilitarBtnAgregar(id[1], false);
               }
             });
           }
-}
+    
+          function restarSubtotal(id: string[]) {
+            const obtenerCosto = document.querySelector(`[data-id="price-${id[1]}"]`) as HTMLElement;
+            console.log(obtenerCosto);
+            if (obtenerCosto) {
+              const obtenerCostoText = obtenerCosto.textContent?.split("$");
+              if (obtenerCostoText) {
+                const costo = parseInt(obtenerCostoText[1]);
+                const resta = subtotal - costo;
+                subTotalHtml.innerHTML = `$${resta}`;
+              }
+            }
+          }
+        }
+      });
+    }
+  }
 
 export function getProductosLocal() {
   llenarIds();
-  const promise = new Promise(function (resolve, reject) {
+  const promise = new Promise(function (resolve) {
     resolve(traerIdsLocalStorage(arrayIds))
   })
   promise

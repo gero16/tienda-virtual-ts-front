@@ -13,7 +13,6 @@ export interface Producto {
 
 interface Order {
   items: Producto[];
-  // Otras propiedades de la orden si las tienes
 }
 
 // Inicializar variables y estructuras de datos
@@ -237,15 +236,14 @@ export async function fetchProducts() : Promise <Producto[]> {
 }
 
 window.onload = async () => {
-  console.log("hola")
   const productos = await fetchProducts()
   renderProductosHtml(productos)
   //console.log(productos)
   
-  new Promise (function(resolve, reject) {
+  new Promise (function(resolve) {
     resolve( getProductosLocal())
   })
-  .then(function(e) {
+  .then(function() {
     //mostrarSubtotalHtml()
     mostrarNumeroArticulosHtml()
     borrarItemCarrito()
