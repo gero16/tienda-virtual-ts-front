@@ -115,15 +115,45 @@ function checkoutHTML(products: Producto[]) {
       infoPedido.append(nombrePedido, cantidadPedido, precioPedido);
       productoPedido.append(imagenPedido, infoPedido);
       pedidoHTML += productoPedido.outerHTML;
-
-  
-      // Resto del código para crear elementos de promoción, subtotal, envío y total, similar a lo que has hecho anteriormente.
-  
     });
-  
+
     // Agregar pedidoHTML al contenedor deseado, por ejemplo:
     if (divPedido) divPedido.innerHTML = pedidoHTML;
 
+     // Promocion
+     const divPromo = createElementHtml({element : "div", classname: ["codigo-promo"] });
+     const promoSpan = createElementHtml({element : "span", content :"Código de promoción" });
+     const promoInput = createElementHtml({element : "input", classname: ["input-promo"]});
+     divPromo.append(promoSpan, promoInput)
+     // Pedido
+     const divTotalPedido = createElementHtml({ element: "div", classname: ["div-total-pedido"] });
+     const ulTotal = createElementHtml({  element: "ul" });
+     // Subtotal
+     const liSub = createElementHtml({ element: "li" });
+     const pCategoriaSub = createElementHtml({element: "p", content: "SubTotal:" });
+     const pSub = createElementHtml({element: "p", content: "$ " + sumaSubTotal});
+     // Envío
+     const liEnvio = createElementHtml({ element: "li" });
+     const pCategoriaEnvio = createElementHtml({element: "p",content: "Envío:" });
+     const pEnvio = createElementHtml({ element: "p" });
+     pEnvio.textContent = envio === 0 ? "Gratis!" : "$ " + envio;
+
+     // Total
+     const liTotal = createElementHtml({ element: "li", classname: ["liTotal"] });
+     const pCategoriaTotal = createElementHtml({element: "h2", content: "Total:" });
+     const pTotal = createElementHtml({ element: "p" });
+     pTotal.textContent = "$ " + total;
+
+     // Agregar elementos al DOM
+     liSub.append(pCategoriaSub, pSub);
+     liEnvio.append(pCategoriaEnvio, pEnvio);
+     liTotal.append(pCategoriaTotal, pTotal);
+     ulTotal.append(liSub, liEnvio, liTotal);
+     divTotalPedido.append(divPromo, ulTotal);
+     if (divPedido) {
+       divPedido.appendChild(divPromo);
+       divPedido.appendChild(divTotalPedido);
+     }
   }
   
   
