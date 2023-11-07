@@ -227,7 +227,7 @@ export function deshabilitarBtnAgregar (id : string, estado : boolean) {
 
 export async function fetchProducts() : Promise <Producto[]> {
     let productos = await (await fetch('http://localhost:3000/api/productos')).json()
-  
+    console.log(productos)
     let { registros } = productos;
   
     productList = registros;
