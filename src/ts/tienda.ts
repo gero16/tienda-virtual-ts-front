@@ -212,12 +212,12 @@ function renderProductosHtml(registros: Producto[]) {
 
 export function deshabilitarBtnAgregar (id : string, estado : boolean) {
   let btnAgregarCarrito = document.querySelector(`[data-id="${ id }"]`) as HTMLButtonElement
-  if(estado === true) {
+  if(btnAgregarCarrito && estado === true) {
     btnAgregarCarrito.disabled = true;
     btnAgregarCarrito.classList.add("disabled")
   }
 
-  if(estado === false) {
+  if(btnAgregarCarrito && estado === false) {
     btnAgregarCarrito.disabled = false;
     btnAgregarCarrito.classList.remove("disabled")
   }

@@ -1,8 +1,4 @@
-//import { createElementHtml } from "./helper-tienda";
 
-import { isDate } from "util/types";
-
-// import { Producto } from "./helpers";
 let divPedido : HTMLDivElement | null = document.querySelector(".contenido-pedido");
 let datosProductosAgregados : Array<Producto> = []
 let productoIds :Array<string>= [];
@@ -11,7 +7,6 @@ let envio : number = 0;
 let total : number = 0;
 let subTotal : number = 0
 let sumaSubTotal : number = 0;
-
 
  interface Producto {
   id: number;
@@ -35,7 +30,6 @@ interface InputElementOptions extends ElementOptions {
   element: 'input';
   value?: number;
 }
-
 
 const ids: [number, number][] = [];
 
@@ -76,33 +70,6 @@ if (dataset) elementoEtiqueta.dataset.id = dataset;
 
 return elementoEtiqueta;
 }
-
-window.onload = async () => {
-  const promise = new Promise <Producto[]> (function (resolve) {
-    // Aquí ejecutamos la función y resolvemos la promesa con los datos
-    let productoIdsJSON = localStorage.getItem(`productoIds`);
-    console.log(productoIdsJSON);
-    if (productoIdsJSON) {
-      productoIds = JSON.parse(productoIdsJSON);
-      productoIds.forEach(id => {
-        const dataJSON = localStorage.getItem(`producto-${id}`);
-        if (dataJSON) {
-          const data = JSON.parse(dataJSON);
-          datosProductosAgregados.push(data);
-        }
-      });
-    }
-
-    // Resolvemos la promesa con los datos
-    resolve(datosProductosAgregados);
-  });
-  // data es como (e) => {}
-  promise.then(function (data: Producto[])  {
-    console.log(data); // Aquí tenemos los datos resueltos
-    checkoutHTML(data);
-  });
-};
-
 
 function checkoutHTML(products: Producto[]) {
     let pedidoHTML = "";
@@ -174,18 +141,18 @@ function checkoutHTML(products: Producto[]) {
        divPedido.appendChild(divPromo);
        divPedido.appendChild(divTotalPedido);
      }
-  }
+}
   
 
-  interface ShippingInfo {
-    name: string;
-    email: string;
-    phone: string;
-    address: string;
-    city: string;
-    state: string;
-    postalCode: string;
-  }
+interface ShippingInfo {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+}
 
 
 async function pay() {
@@ -200,9 +167,6 @@ async function pay() {
     } 
   
   try {
-    let productoIdsJSON = localStorage.getItem(`productoIds`);
-    if (productoIdsJSON)  {
-      let productoIds = JSON.parse(productoIdsJSON)
       console.log(listaProductos)
       const data = [shipping, listaProductos];
 
@@ -230,8 +194,6 @@ async function pay() {
     
       document.querySelector("#order-actions")?.appendChild(script);
       
-    }
-   
   } catch (error) {
     console.log(error);
   }
@@ -244,7 +206,6 @@ if(btnConfirmar) {
   })
 }
 
-
 const btnVolver = document.querySelector(".volver") 
 function volver () {
   window.history.back()
@@ -254,3 +215,30 @@ if(btnVolver) {
     volver()
   })
 }
+
+
+window.onload = async () => {
+  const promise = new Promise <Producto[]> (function (resolve) {
+    // Aquí ejecutamos la función y resolvemos la promesa con los datos
+    let productoIdsJSON = localStorage.getItem(`productoIds`);
+    console.log(productoIdsJSON);
+    if (productoIdsJSON) {
+      productoIds = JSON.parse(productoIdsJSON);
+      productoIds.forEach(id => {
+        const dataJSON = localStorage.getItem(`producto-${id}`);
+        if (dataJSON) {
+          const data = JSON.parse(dataJSON);
+          datosProductosAgregados.push(data);
+        }
+      });
+    }
+
+    // Resolvemos la promesa con los datos
+    resolve(datosProductosAgregados);
+  });
+  // data es como (e) => {}
+  promise.then(function (data: Producto[])  {
+    console.log(data); // Aquí tenemos los datos resueltos
+    checkoutHTML(data);
+  });
+};
