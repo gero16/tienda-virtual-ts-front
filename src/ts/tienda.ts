@@ -20,10 +20,10 @@ let productList: Producto[] = []; // Debes inicializar productList con tus produ
 let order: Order = { items: [] };
 let ids : Array<string> = []
 
+
+
 const productosHTML = document.querySelector(".productos");
 const productosCarrito = document.querySelector(".productos-carrito");
-
-
 
 function addCarritoHTML(product : Producto) {
   let { image, name, price, id } = product
@@ -170,7 +170,7 @@ function renderProductosHtml(registros: Producto[]) {
 
     const divProducto = createElementHtml({
       element: "div",
-      classname: ["producto", "centrar-texto"]
+      classname: ["producto", "centrar-texto"],
     }) as HTMLDivElement;
 
     const img = createElementHtml({
@@ -180,7 +180,7 @@ function renderProductosHtml(registros: Producto[]) {
 
     const nombre = createElementHtml({
       element: "p",
-      content: name
+      content: `${name} id: ${id}`
     }) as HTMLParagraphElement;
 
     const precio = createElementHtml({
@@ -234,6 +234,94 @@ export async function fetchProducts() : Promise <Producto[]> {
     console.log(productList)
     return productList;
 }
+
+
+
+
+let filtradoHTML: string = "";
+const filtroPrecio: HTMLInputElement | null = document.querySelector("#precio");
+const mostrarPrecio: HTMLElement | null = document.querySelector("#mostrar-precio");
+const filtroCategorias: HTMLElement | null = document.querySelector(".filtro-categorias");
+
+function filtrarCategoria () {
+
+}
+if (filtroCategorias) {
+  filtroCategorias.addEventListener("click", (e) => {
+    if (!filtroPrecio) return;
+    if (!productosHTML) return;
+
+    if(productosHTML) {
+
+      productosHTML.innerHTML = " ";
+      filtradoHTML = "";
+
+      const nameCategoria: string = (e.target as HTMLElement).id;
+      const previousSelected: HTMLElement | null = document.querySelector(".seleccionado");
+
+      if (previousSelected) {
+        previousSelected.classList.toggle("seleccionado");
+        (e.target as HTMLElement).classList.toggle("seleccionado");
+        console.log((e.target as HTMLElement).id);
+      } else {
+        (e.target as HTMLElement).classList.toggle("seleccionado");
+      }
+
+      if (previousSelected && previousSelected.id === (e.target as HTMLElement).id) {
+        previousSelected.classList.remove("seleccionado");
+      }
+
+      console.log(productList)
+      productList.forEach((elemento) => {
+        const { name, image, id, category, price } = elemento;
+
+        if (category === nameCategoria && price >= Number(filtroPrecio.value)) {
+          console.log("hola")
+
+          const divProducto: HTMLElement = createElementHtml ({
+              element: "div",
+              classname: ["producto", "centrar-texto"]
+            });
+            
+          const img: HTMLElement = createElementHtml({
+            element: "img",
+            src: image,
+          }) as HTMLImageElement
+          
+          const nombre: HTMLElement = createElementHtml ({
+            element : "p",
+            content : name
+          })
+
+          const precio: HTMLElement = createElementHtml({
+            element : "p",
+            content : `${ price }`
+          })
+          const button: HTMLElement = createElementHtml({
+            element : "button",
+            classname : ["add"],
+            content : "Agregar Carrito",
+            dataset: String(id),
+          }) as HTMLButtonElement
+          
+          divProducto.append(img, nombre, precio, button);
+          productosHTML.append(divProducto);
+          console.log(productosHTML)
+        }
+      });
+
+      const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
+      btns.forEach((element) => element.addEventListener("click", (e) => {
+        console.log(e.target);
+        const valor = (e.target as HTMLElement)?.dataset?.id;
+
+        if(valor) agregarProducto(Number(valor));
+      }));
+      }
+    });
+}
+
+
 
 window.onload = async () => {
   const productos = await fetchProducts()
