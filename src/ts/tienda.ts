@@ -243,159 +243,171 @@ const filtroPrecio: HTMLInputElement | null = document.querySelector("#precio");
 const mostrarPrecio: HTMLElement | null = document.querySelector("#mostrar-precio");
 const filtroCategorias: HTMLElement | null = document.querySelector(".filtro-categorias");
 
-function filtrarCategoria () {
-
-}
-if (filtroCategorias) {
-  filtroCategorias.addEventListener("click", (e) => {
-    if (!filtroPrecio) return;
-    if (!productosHTML) return;
-
-    if(productosHTML) {
-
-      productosHTML.innerHTML = " ";
-      filtradoHTML = "";
-
-      const nameCategoria: string = (e.target as HTMLElement).id;
-      const previousSelected: HTMLElement | null = document.querySelector(".seleccionado");
-
-      if (previousSelected) {
-        previousSelected.classList.toggle("seleccionado");
-        (e.target as HTMLElement).classList.toggle("seleccionado");
-        console.log((e.target as HTMLElement).id);
-      } else {
-        (e.target as HTMLElement).classList.toggle("seleccionado");
-      }
-
-      if (previousSelected && previousSelected.id === (e.target as HTMLElement).id) {
-        previousSelected.classList.remove("seleccionado");
-      }
-
-      console.log(productList)
-      productList.forEach((elemento) => {
-        const { name, image, id, category, price } = elemento;
-
-        if (category === nameCategoria && price >= Number(filtroPrecio.value)) {
-          console.log("hola")
-
-          const divProducto: HTMLElement = createElementHtml ({
-              element: "div",
-              classname: ["producto", "centrar-texto"]
-            });
-            
-          const img: HTMLElement = createElementHtml({
-            element: "img",
-            src: image,
-          }) as HTMLImageElement
-          
-          const nombre: HTMLElement = createElementHtml ({
-            element : "p",
-            content : name
-          })
-
-          const precio: HTMLElement = createElementHtml({
-            element : "p",
-            content : `${ price }`
-          })
-          const button: HTMLElement = createElementHtml({
-            element : "button",
-            classname : ["add"],
-            content : "Agregar Carrito",
-            dataset: String(id),
-          }) as HTMLButtonElement
-          
-          divProducto.append(img, nombre, precio, button);
-          productosHTML.append(divProducto);
-          console.log(productosHTML)
-        }
-      });
-
-      const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
-      btns.forEach((element) => element.addEventListener("click", (e) => {
-        console.log(e.target);
-        const valor = (e.target as HTMLElement)?.dataset?.id;
-
-        if(valor) agregarProducto(Number(valor));
-      }))
-    }
-
-  });
-}
-
-if (filtroPrecio) {
-  filtroPrecio.addEventListener("click", (e) => {
-    const targetValue = (e.target as HTMLInputElement).value
-    const precioPrincipal = parseInt(targetValue)
-
-    if(mostrarPrecio) mostrarPrecio.textContent = String(precioPrincipal);
-    filtradoHTML = " ";
-    if(productosHTML) productosHTML.innerHTML = " ";
-    
-    const selectedCategory = document.querySelector(".seleccionado")
-    if(selectedCategory) {
-      productList.forEach((elemento) => {
-        const { name, image, id, category, price } = elemento;
-
-        if (precioPrincipal < price && category == selectedCategory.id) {
-       
-          const divProducto: HTMLElement = createElementHtml ({
-              element: "div",
-              classname: ["producto", "centrar-texto"]
-            });
-            
-          const img: HTMLElement = createElementHtml({
-            element: "img",
-            src: image,
-          }) as HTMLImageElement
-          
-          const nombre: HTMLElement = createElementHtml ({
-            element : "p",
-            content : name
-          })
-
-          const precio: HTMLElement = createElementHtml({
-            element : "p",
-            content : `${ price }`
-          })
-          const button: HTMLElement = createElementHtml({
-            element : "button",
-            classname : ["add"],
-            content : "Agregar Carrito",
-            dataset: String(id),
-          }) as HTMLButtonElement
-          
-          divProducto.append(img, nombre, precio, button);
-          if(productosHTML) productosHTML.append(divProducto);
-          console.log(productosHTML)
-        }
-      });
-    }
+function eventoFiltrarCategoria () {
+  if (filtroCategorias) {
+    filtroCategorias.addEventListener("click", (e) => {
+      if (!filtroPrecio) return;
+      if (!productosHTML) return;
   
-    const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
-      btns.forEach((element) => element.addEventListener("click", (e) => {
-        console.log(e.target);
-        const valor = (e.target as HTMLElement)?.dataset?.id;
+      if(productosHTML) {
+  
+        productosHTML.innerHTML = " ";
+        filtradoHTML = "";
+  
+        const nameCategoria: string = (e.target as HTMLElement).id;
+        const previousSelected: HTMLElement | null = document.querySelector(".seleccionado");
+  
+        if (previousSelected) {
+          previousSelected.classList.toggle("seleccionado");
+          (e.target as HTMLElement).classList.toggle("seleccionado");
+          console.log((e.target as HTMLElement).id);
+        } else {
+          (e.target as HTMLElement).classList.toggle("seleccionado");
+        }
+  
+        if (previousSelected && previousSelected.id === (e.target as HTMLElement).id) {
+          previousSelected.classList.remove("seleccionado");
+        }
+  
+        console.log(productList)
+        productList.forEach((elemento) => {
+          const { name, image, id, category, price } = elemento;
+  
+          if (category === nameCategoria && price >= Number(filtroPrecio.value)) {
+            console.log("hola")
+  
+            const divProducto: HTMLElement = createElementHtml ({
+                element: "div",
+                classname: ["producto", "centrar-texto"]
+              });
+              
+            const img: HTMLElement = createElementHtml({
+              element: "img",
+              src: image,
+            }) as HTMLImageElement
+            
+            const nombre: HTMLElement = createElementHtml ({
+              element : "p",
+              content : name
+            })
+  
+            const precio: HTMLElement = createElementHtml({
+              element : "p",
+              content : `${ price }`
+            })
+            const button: HTMLElement = createElementHtml({
+              element : "button",
+              classname : ["add"],
+              content : "Agregar Carrito",
+              dataset: String(id),
+            }) as HTMLButtonElement
+            
+            divProducto.append(img, nombre, precio, button);
+            productosHTML.append(divProducto);
+            console.log(productosHTML)
+          }
+        });
+  
+        const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
+        btns.forEach((element) => element.addEventListener("click", (e) => {
+          console.log(e.target);
+          const valor = (e.target as HTMLElement)?.dataset?.id;
+  
+          if(valor) agregarProducto(Number(valor));
+        }))
+      }
+  
+    });
+  }
+  
+}
 
-        if(valor) agregarProducto(Number(valor));
-      }))
+function eventoFiltrarPrecio () {
+  if (filtroPrecio) {
+    filtroPrecio.addEventListener("click", (e) => {
+      const targetValue = (e.target as HTMLInputElement).value
+      const precioPrincipal = parseInt(targetValue)
+  
+      if(mostrarPrecio) mostrarPrecio.textContent = String(precioPrincipal);
+      filtradoHTML = " ";
+      if(productosHTML) productosHTML.innerHTML = " ";
       
-  })
+      const selectedCategory = document.querySelector(".seleccionado")
+      if(selectedCategory) {
+        productList.forEach((elemento) => {
+          const { name, image, id, category, price } = elemento;
+  
+          if (precioPrincipal < price && category == selectedCategory.id) {
+         
+            const divProducto: HTMLElement = createElementHtml ({
+                element: "div",
+                classname: ["producto", "centrar-texto"]
+              });
+              
+            const img: HTMLElement = createElementHtml({
+              element: "img",
+              src: image,
+            }) as HTMLImageElement
+            
+            const nombre: HTMLElement = createElementHtml ({
+              element : "p",
+              content : name
+            })
+  
+            const precio: HTMLElement = createElementHtml({
+              element : "p",
+              content : `${ price }`
+            })
+            const button: HTMLElement = createElementHtml({
+              element : "button",
+              classname : ["add"],
+              content : "Agregar Carrito",
+              dataset: String(id),
+            }) as HTMLButtonElement
+            
+            divProducto.append(img, nombre, precio, button);
+            if(productosHTML) productosHTML.append(divProducto);
+            console.log(productosHTML)
+          }
+        });
+      }
+    
+      const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
+        btns.forEach((element) => element.addEventListener("click", (e) => {
+          console.log(e.target);
+          const valor = (e.target as HTMLElement)?.dataset?.id;
+  
+          if(valor) agregarProducto(Number(valor));
+        }))
+        
+    })
+  }
 }
 
 window.onload = async () => {
-  const productos = await fetchProducts()
-  renderProductosHtml(productos)
-  //console.log(productos)
-  
-  new Promise (function(resolve) {
+  async function traerProductos () {
+    const productos = await fetchProducts()
+    renderProductosHtml(productos)
+  }
+
+
+
+  const promesaTotalProductos =  new Promise (function(resolve) {
+    resolve(traerProductos())
+  })
+  promesaTotalProductos.then( function () {
+    eventoFiltrarCategoria()
+    eventoFiltrarPrecio()
+  })
+
+  const promesaProductosLocal =  new Promise (function(resolve) {
     resolve( getProductosLocal())
   })
-  .then(function() {
+  promesaProductosLocal.then(function() {
     //mostrarSubtotalHtml()
     mostrarNumeroArticulosHtml()
     borrarItemCarrito()
     eventoRestarEnTodos() 
     eventoSumarEnTodos()
-  
   })
 }
