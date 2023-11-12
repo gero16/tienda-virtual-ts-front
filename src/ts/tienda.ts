@@ -316,12 +316,71 @@ if (filtroCategorias) {
         const valor = (e.target as HTMLElement)?.dataset?.id;
 
         if(valor) agregarProducto(Number(valor));
-      }));
-      }
-    });
+      }))
+    }
+
+  });
 }
 
+if (filtroPrecio) {
+  filtroPrecio.addEventListener("click", (e) => {
+    const targetValue = (e.target as HTMLInputElement).value
+    const precioPrincipal = parseInt(targetValue)
 
+    if(mostrarPrecio) mostrarPrecio.textContent = String(precioPrincipal);
+    filtradoHTML = " ";
+    if(productosHTML) productosHTML.innerHTML = " ";
+    
+    const selectedCategory = document.querySelector(".seleccionado")
+    if(selectedCategory) {
+      productList.forEach((elemento) => {
+        const { name, image, id, category, price } = elemento;
+
+        if (precioPrincipal < price && category == selectedCategory.id) {
+       
+          const divProducto: HTMLElement = createElementHtml ({
+              element: "div",
+              classname: ["producto", "centrar-texto"]
+            });
+            
+          const img: HTMLElement = createElementHtml({
+            element: "img",
+            src: image,
+          }) as HTMLImageElement
+          
+          const nombre: HTMLElement = createElementHtml ({
+            element : "p",
+            content : name
+          })
+
+          const precio: HTMLElement = createElementHtml({
+            element : "p",
+            content : `${ price }`
+          })
+          const button: HTMLElement = createElementHtml({
+            element : "button",
+            classname : ["add"],
+            content : "Agregar Carrito",
+            dataset: String(id),
+          }) as HTMLButtonElement
+          
+          divProducto.append(img, nombre, precio, button);
+          if(productosHTML) productosHTML.append(divProducto);
+          console.log(productosHTML)
+        }
+      });
+    }
+  
+    const btns: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".add");
+      btns.forEach((element) => element.addEventListener("click", (e) => {
+        console.log(e.target);
+        const valor = (e.target as HTMLElement)?.dataset?.id;
+
+        if(valor) agregarProducto(Number(valor));
+      }))
+      
+  })
+}
 
 window.onload = async () => {
   const productos = await fetchProducts()
