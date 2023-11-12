@@ -167,7 +167,7 @@ function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
     let { id, image, name, price } = registro;
     if(image.includes("img/")) image = `../${image}`
-
+    
     const divProducto = createElementHtml({
       element: "div",
       classname: ["producto", "centrar-texto"],
@@ -271,8 +271,9 @@ function eventoFiltrarCategoria () {
   
         console.log(productList)
         productList.forEach((elemento) => {
-          const { name, image, id, category, price } = elemento;
-  
+          let { name, image, id, category, price } = elemento;
+          if(image.includes("img/")) image = `../${image}`
+
           if (category === nameCategoria && price >= Number(filtroPrecio.value)) {
             console.log("hola")
   
@@ -335,10 +336,10 @@ function eventoFiltrarPrecio () {
       const selectedCategory = document.querySelector(".seleccionado")
       if(selectedCategory) {
         productList.forEach((elemento) => {
-          const { name, image, id, category, price } = elemento;
-  
+          let { name, image, id, category, price } = elemento;
+          if(image.includes("img/")) image = `../${image}`
+
           if (precioPrincipal < price && category == selectedCategory.id) {
-         
             const divProducto: HTMLElement = createElementHtml ({
                 element: "div",
                 classname: ["producto", "centrar-texto"]
@@ -385,13 +386,11 @@ function eventoFiltrarPrecio () {
 }
 
 window.onload = async () => {
+
   async function traerProductos () {
     const productos = await fetchProducts()
     renderProductosHtml(productos)
   }
-
-
-
   const promesaTotalProductos =  new Promise (function(resolve) {
     resolve(traerProductos())
   })
@@ -403,6 +402,7 @@ window.onload = async () => {
   const promesaProductosLocal =  new Promise (function(resolve) {
     resolve( getProductosLocal())
   })
+  
   promesaProductosLocal.then(function() {
     //mostrarSubtotalHtml()
     mostrarNumeroArticulosHtml()
