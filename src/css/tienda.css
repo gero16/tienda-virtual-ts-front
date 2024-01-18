@@ -37,7 +37,7 @@
   }
   
   .div-filtros {
-    margin: 180px 0px 30px 0px;
+    margin: 220px 0px 30px 0px;
     padding: 10px;
     min-width: 165px;
   }
@@ -164,9 +164,10 @@
   
   .categoria-filtro {
     font-weight: 400;
-    margin: 0px 0px 0px 2px;
+    margin: 10px 0px 0px 2px;
     font-size:medium;
     border: 1px solid rgb(185, 181, 181);
+    border-radius: 5px;
   }
   
   .filtro-categorias {
@@ -195,7 +196,7 @@
   .productos {
     padding: 10px;
     border-radius: 10px;
-   
+
   }
   
   
@@ -208,6 +209,8 @@
     width: 180px;
     height: 355px;
     transition: 0.5s;
+   
+
   }
   
   .producto img {
@@ -395,12 +398,12 @@
   
   @media (min-width: 1300px) {
     .producto {
-      width: 170px;
+      width: 180px;
       height: 315px;
     }
     
     .producto img {
-      width: 200px;
+      width: 180px;
       height: 200px;
     }
   }
