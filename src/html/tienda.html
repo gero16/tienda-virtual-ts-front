@@ -40,18 +40,24 @@
           <div class="filtro ">
     
             <div class="lista-filtro">
-              <section class="precios">
-                <h3 class="precios-titulo">Precios</h3>
+              <section class="precios centrar-texto">
+                <h3 class="precios-titulo"> Filtrar por Precios</h3>
                 <div class="div-precios">
                   <div class="precio-principal">
                     <label for="precio"></label>
-                     <span id="mostrar-precio"> $ 0 - $ 1500 </span>
-                     <input type="range" id="precio" class="input-precio" min="0" max="1500" step="1" value="0">
+                    
+                    <input type="range" min="0" max="1500" value="0" class="input-precio" id="precio">
+                  
+                      <span id="mostrar-precio"> $ 0  </span>
+
+                  
+               
                   </div>
               </section>
 
-              <section class="filtro-categorias">
-                <h3  class="titulo-categoria">Categorias</h3>
+              <section class="filtro-categorias centrar-texto">
+
+                <p class="categoria-filtro" id="championes"> Mostrar Todo </p>
                 <p class="categoria-filtro" id="championes">Championes</p>
                 <p class="categoria-filtro" id="bermudas">Bermudas</p>
                 <p class="categoria-filtro" id="gorros">Gorros</p>

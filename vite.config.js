@@ -5,7 +5,8 @@ export default {
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, './index.html'), // Tu página principal
-          tienda: path.resolve(__dirname, 'src/tienda.html'), // Tu página de tienda
+          tienda: path.resolve(__dirname, 'src/html/tienda.html'), // Tu página de tienda
+          checkout: path.resolve(__dirname, 'src/html/checkout.html')
         },
       },
     },
