@@ -80,8 +80,14 @@ header {
   color: white;
 }
 
+.navbar ul li a {
+  transition: 0.5s ease-in-out;
+  filter: brightness(85%);
+}
+
 .navbar ul li a:hover {
-  font-weight: 700;
+  transition: 0.5s ease-in-out;
+  filter: brightness(110%);
 }
 
 footer {
