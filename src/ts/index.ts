@@ -90,68 +90,6 @@ const fetchInfo = () => {
 .catch(error => console.error('Error:', error));
 }
 
-const getUserId = async () => {
-    const url = 'https://api.mercadolibre.com/users/me';
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data.id;
-    } catch (error) {
-        console.error('Error getting user ID:', error);
-    }
-};
-
-const getAllItems = async (userId : string ) => {
-    const url = `https://api.mercadolibre.com/users/${userId}/items/search`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data.results; // Asumiendo que las IDs de los artículos están en 'results'
-    } catch (error) {
-        console.error('Error getting items:', error);
-    }
-};
-
-const fetchAllItemsData = async () => {
-    try {
-        const userId = await getUserId();
-        if (!userId) return;
-
-        const items = await getAllItems(userId);
-        if (!items || items.length === 0) {
-            console.log('No items found.');
-            return;
-        }
-
-        console.log('Items:', items);
-    } catch (error) {
-        console.error('Error fetching all items data:', error);
-    }
-};
-
-fetchAllItemsData();
 
 
 window.onload = () => {
@@ -167,10 +105,9 @@ window.onload = () => {
     })
 
     
-    //InfoUsuarioML()
-    //fetchProductoML("MLU685991736")
+    InfoUsuarioML()
+    fetchProductoML("MLU685978524")
     //fetchInfo()
-    fetchAllItemsData();
-
+    
   }
   
