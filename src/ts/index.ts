@@ -20,10 +20,9 @@ iconoCarrito.addEventListener("click", () => {
   
 
   const accessToken = 'TEST-3488859500794386-010715-320f2dd75257891352172318a1ed84fd-370206533';
-  const userId = '370206533';
 
-  const numeroAplicacionApi = "6781299248679448"
-  const numeroAplicacionGero = "3488859500794386"
+  //const numeroAplicacionApi = "6781299248679448"
+  //const numeroAplicacionGero = "3488859500794386"
   
 
 
@@ -67,7 +66,7 @@ const InfoUsuarioML = () => {
   .catch(error => console.error('Error:', error));
 }
   
-
+/*
 const fetchInfo = () => {
 
   const url = `https://api.mercadolibre.com/users/${ userId }/items/search`;
@@ -90,7 +89,7 @@ const fetchInfo = () => {
 .catch(error => console.error('Error:', error));
 }
 
-
+*/
 
 window.onload = () => {
     new Promise (function(resolve) {
