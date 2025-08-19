@@ -96,7 +96,7 @@ function checkoutHTML(products: Producto[]) {
   
       // Crear elementos HTML con createElementHtml
       const productoPedido = createElementHtml({ element: "div", classname: ["producto-pedido"] });
-      const imagenPedido = createElementHtml({ element: "img", classname: ["imagen-pedido"], src: `../${image}` });
+      const imagenPedido = createElementHtml({ element: "img", classname: ["imagen-pedido"], src: `/${image.replace("src/", "").replace("../", "")}`});
       const infoPedido = createElementHtml({ element: "div", classname: ["info-pedido"] });
       const nombrePedido = createElementHtml({ element: "h3", classname: ["nombre-pedido"], content: name });
       const cantidadPedido = createElementHtml({ element: "p", classname: ["cantidad-pedido"], content: `Cantidad:${cantidad}` });
