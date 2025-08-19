@@ -8,6 +8,9 @@ let total : number = 0;
 let subTotal : number = 0
 let sumaSubTotal : number = 0;
 
+const urlBackend = import.meta.env.VITE_URL_BACKEND;
+
+
  interface Producto {
   id: number;
   name: string;
@@ -171,7 +174,7 @@ async function pay() {
       const data = [shipping, listaProductos];
 
       const preference = await (
-        await fetch("http://localhost:3000/api/pay", {
+        await fetch(`${urlBackend}/api/pay`, {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
@@ -180,6 +183,7 @@ async function pay() {
         })
       ).json();
   
+      console.log(preference)
       const script = document.createElement("script");
       script.src =
         "https://www.mercadopago.com.uy/integrations/v1/web-payment-checkout.js";
@@ -187,6 +191,7 @@ async function pay() {
       script.dataset.preferenceId = preference.preferenceId;
       // Opcion de MP para personalizar el botton
       script.setAttribute("data-button-label", "Pagar con Mercado Pago");
+      console.log(script)
       
    
       const orderActionsElement = document.getElementById("order-actions");
