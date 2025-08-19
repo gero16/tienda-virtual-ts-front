@@ -30,7 +30,8 @@ function addCarritoHTML(product : Producto) {
   console.log(product)
 
   // Caja Producto
-  const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : `../${image}` })
+  const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"],   src: `/${image.replace("src/", "").replace("../", "")}` // Elimina todos los ../ y src/
+ })
     
   // Seccion Contenido
   const divContenidoCarrito = createElementHtml({element : "div", classname : ["div-contenido-carrito", "centrar-texto"] })

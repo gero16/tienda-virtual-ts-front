@@ -78,7 +78,7 @@ export function htmlCarritoLocalStorage () {
 
     datosProductosAgregados.forEach((product) => {
       let { image, name, price, id, cantidad } = product
-      const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"], src : `../${image}` })
+      const imgCarrito = createElementHtml({element : "img", classname : ["img-comprar"],   src: `/${image.replace("src/", "").replace("../", "")}`  })
       
     // Seccion Contenido
       const divContenidoCarrito = createElementHtml({element : "div", classname : ["div-contenido-carrito", "centrar-texto"] })
