@@ -181,6 +181,7 @@ function renderProductosHtml(registros: Producto[]) {
     const nombre = createElementHtml({
       element: "p",
       /*content: `${name} id: ${id}` */
+      content: `${name}`
     }) as HTMLParagraphElement;
 
     const precio = createElementHtml({
