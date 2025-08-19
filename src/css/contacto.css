@@ -5,10 +5,13 @@
   height: 70px;
 }
 .formulario {
-  margin: 200px 0px 0px 0px;
-  color: black;
-  height: 500px;
+  margin: 100px 0px 20px 0px;
+  color: #0e0d0d;
+  height: 300px;
+  padding: 20px;
   width: 400px;
+  background-color: rgb(233, 233, 233);
+  border-radius: 10px;
 }
 
 .titulo-contacto {
