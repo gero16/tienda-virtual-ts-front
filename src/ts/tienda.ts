@@ -166,7 +166,7 @@ export function eventoRestarEnTodos() {
 function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
     let { id, image, name, price } = registro;
-    if(image.includes("img/")) image = `../${image}`
+    if (image.includes("img/")) image = `/${image.replace("src/", "")}`; // Ej: "/img/remera.webp"
     
     const divProducto = createElementHtml({
       element: "div",
@@ -273,7 +273,7 @@ function eventoFiltrarCategoria () {
         console.log(productList)
         productList.forEach((elemento) => {
           let { name, image, id, category, price } = elemento;
-          if(image.includes("img/")) image = `../${image}`
+          if (image.includes("img/")) image = `/${image.replace("src/", "")}`; // Ej: "/img/remera.webp"
 
           if (category === nameCategoria && price >= Number(filtroPrecio.value)) {
             console.log("hola")
@@ -338,7 +338,7 @@ function eventoFiltrarPrecio () {
       if(selectedCategory) {
         productList.forEach((elemento) => {
           let { name, image, id, category, price } = elemento;
-          if(image.includes("img/")) image = `../${image}`
+          if (image.includes("img/")) image = `/${image.replace("src/", "")}`; // Ej: "/img/remera.webp"
 
           if (precioPrincipal < price && category == selectedCategory.id) {
             const divProducto: HTMLElement = createElementHtml ({
