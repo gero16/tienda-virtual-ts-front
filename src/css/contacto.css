@@ -1,7 +1,8 @@
 /***** SECCION CONTACTO *****/
 
-header {
+.header {
   background-color: rgb(29, 28, 28);
+  height: 70px;
 }
 .formulario {
   margin: 200px 0px 0px 0px;
