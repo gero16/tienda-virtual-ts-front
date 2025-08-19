@@ -181,6 +181,14 @@
     }
   
   
+    .footer p {
+      font-size: small;
+    }
+
+    .img-mastercard {
+      height: 22px;
+      
+    }
     @media (min-width: 620px) {
       .banner {
         background-repeat: no-repeat;

@@ -91,6 +91,10 @@ header {
   filter: brightness(110%);
 }
 
+.footer p {
+  font-size: x-small;
+}
+
 footer {
   color: rgb(51, 50, 50);
   font-family: 'Roboto Slab', serif;
