@@ -83,6 +83,7 @@ header {
 .navbar ul li a {
   transition: 0.5s ease-in-out;
   filter: brightness(85%);
+  font-size: small;
 }
 
 .navbar ul li a:hover {
