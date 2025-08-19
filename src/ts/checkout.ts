@@ -99,9 +99,11 @@ function checkoutHTML(products: Producto[]) {
       const imagenPedido = createElementHtml({ element: "img", classname: ["imagen-pedido"], src: `/${image.replace("src/", "").replace("../", "")}`});
       const infoPedido = createElementHtml({ element: "div", classname: ["info-pedido"] });
       const nombrePedido = createElementHtml({ element: "h3", classname: ["nombre-pedido"], content: name });
-      const cantidadPedido = createElementHtml({ element: "p", classname: ["cantidad-pedido"], content: `Cantidad:${cantidad}` });
-      const precioPedido = createElementHtml({ element: "p", classname: ["precio-pedido"], content: `$${subTotal}` });
-  
+      const cantidadPedido = createElementHtml({ element: "p", classname: ["cantidad-pedido"], content: `Cantidad:` });
+      const cantidadNumero = createElementHtml({ element: "strong", classname: ["cantidad-pedido"], content: `${cantidad}` });
+      const precioPedido = createElementHtml({ element: "strong", classname: ["precio-pedido"], content: `$${subTotal}` });
+
+      cantidadPedido.append(cantidadNumero)
       infoPedido.append(nombrePedido, cantidadPedido, precioPedido);
       productoPedido.append(imagenPedido, infoPedido);
       pedidoHTML += productoPedido.outerHTML;
@@ -131,7 +133,7 @@ function checkoutHTML(products: Producto[]) {
      // Total
      const liTotal = createElementHtml({ element: "li", classname: ["liTotal"] });
      const pCategoriaTotal = createElementHtml({element: "h2", content: "Total:" });
-     const pTotal = createElementHtml({ element: "p" });
+     const pTotal = createElementHtml({ element: "strong" });
      pTotal.textContent = "$ " + total;
 
      // Agregar elementos al DOM
