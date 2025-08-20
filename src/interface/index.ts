@@ -4,8 +4,13 @@ export interface ElementOptions {
   content?: string;
   dataset?: string;
   src?: string;
- style?: string; // Agrega esta línea
+  style?: string;
+  id?: string;
+  type?: string;
+  onclick?: (event: Event) => void;
+  value?: string | number;
 }
+
 
 export interface InputElementOptions extends ElementOptions {
   element: 'input';

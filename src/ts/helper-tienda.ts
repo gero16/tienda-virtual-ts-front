@@ -1,5 +1,6 @@
-import { Producto, calcularSubTotalProducto, mostrarSubtotalHtml } from "./helpers";
-
+import { calcularSubTotalProducto, mostrarSubtotalHtml } from "./helpers";
+import { Producto } from "../interface";
+import { ElementOptions, InputElementOptions } from "../interface";
 
 export let productList = []
 export let arrayIds = []
@@ -10,19 +11,6 @@ export let subTotal = 0;
 
 const numbCompras = document.querySelector('.numero-compras')
 
-
-interface ElementOptions {
-    element: string;
-    classname?: string[];
-    content?: string;
-    dataset?: string;
-    src?: string;
-  }
-  
-interface InputElementOptions extends ElementOptions {
-  element: 'input';
-  value?: number;
-}
   
 export function createElementHtml(options: ElementOptions | InputElementOptions): HTMLElement {
   const { element, classname, content, dataset, src } = options;

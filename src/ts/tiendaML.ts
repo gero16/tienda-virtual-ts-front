@@ -218,7 +218,7 @@ function determinarCategoria(titulo: string): string {
 
 function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
-    let { _id, main_image, images, title, price } = registro;
+    let { _id, images, title, price } = registro;
     const categoria = determinarCategoria(title);
     
     const divProducto = createElementHtml({
@@ -260,6 +260,7 @@ function renderProductosHtml(registros: Producto[]) {
       content: "Agregar Carrito",
       dataset: _id,
       style: "background: #2c5530; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px;"
+
     }) as HTMLButtonElement;
 
     divProducto.setAttribute('data-category', categoria);

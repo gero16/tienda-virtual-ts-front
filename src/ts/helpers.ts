@@ -1,15 +1,6 @@
 import { createElementHtml } from "./helper-tienda";
 import { deshabilitarBtnAgregar } from "./tienda";
-
-export interface Producto {
-  id: number;
-  name: string;
-  image: string;
-  category: string;
-  price: number;
-  stock: number;
-  cantidad: number;
-}
+import { Producto } from "../interface";
 
 export let total : number = 0 
 export let subTotal : number = 0
