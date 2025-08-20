@@ -1,4 +1,4 @@
-import { Producto, Variante } from './tiendaML';
+import { Producto, Variante } from '../interface/mercadolibre';
 import { agregarProducto } from './tiendaML';
 
 let productoActual: Producto | null = null;
@@ -44,7 +44,7 @@ function mostrarProducto(producto: Producto): void {
     
     // Imagen principal
     const imagenPrincipal = document.getElementById('imagen-principal') as HTMLImageElement;
-    if (imagenPrincipal) imagenPrincipal.src = producto.main_image;
+    if (imagenPrincipal) imagenPrincipal.src = producto.images[0].url;
     
     // Título
     const titulo = document.getElementById('titulo-producto');

@@ -1,3 +1,4 @@
+import { ElementOptions, InputElementOptions, Producto, CompraProducto } from "../interface/index";
 
 let divPedido : HTMLDivElement | null = document.querySelector(".contenido-pedido");
 let datosProductosAgregados : Array<Producto> = []
@@ -11,35 +12,7 @@ let sumaSubTotal : number = 0;
 const urlBackend = import.meta.env.VITE_URL_BACKEND;
 
 
- interface Producto {
-  id: number;
-  name: string;
-  image: string;
-  category: string;
-  price: number;
-  stock: number;
-  cantidad: number;
-}
-
-interface ElementOptions {
-  element: string;
-  classname?: string[];
-  content?: string;
-  dataset?: string;
-  src?: string;
-}
-
-interface InputElementOptions extends ElementOptions {
-  element: 'input';
-  value?: number;
-}
-
 const ids: [number, number][] = [];
-
-interface CompraProducto {
-  id: number;
-  cantidad: number;
-}
 
 let listaProductos : CompraProducto[] = []
 
