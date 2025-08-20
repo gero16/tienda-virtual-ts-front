@@ -49,7 +49,7 @@ function mostrarProducto(producto: Producto): void {
     // Título
     const titulo = document.getElementById('titulo-producto');
     if (titulo) titulo.textContent = producto.title;
-    
+
     // Precio
     const precio = document.getElementById('precio-producto');
     if (precio) precio.textContent = `$${producto.price}`;
@@ -58,10 +58,15 @@ function mostrarProducto(producto: Producto): void {
     const disponibilidad = document.getElementById('disponibilidad-producto');
     if (disponibilidad) {
         disponibilidad.textContent = producto.available_quantity > 0 
-            ? `Disponible (${producto.available_quantity} unidades)` 
-            : 'Agotado';
+        ? `Disponible (${producto.available_quantity} unidades)` 
+        : 'Agotado';
         disponibilidad.style.color = producto.available_quantity > 0 ? 'green' : 'red';
     }
+
+    // Descripcion
+    const descripcion = document.getElementById('descripcion');
+    if (descripcion) descripcion.textContent = `${producto.description}`;
+    
     
     // Mostrar variantes
     mostrarVariantes(producto.variantes);

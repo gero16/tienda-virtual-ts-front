@@ -20,6 +20,7 @@ export interface Producto {
     title: string;
     variantes: Variante[];
     cantidad?: number;
+    description?: string;
     categoria?: string; // Necesitarás mapear esto según tus categorías
     images: Array<{
         id: string;

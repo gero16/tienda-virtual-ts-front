@@ -1,3 +1,18 @@
+body {
+    color: rgb(39, 39, 39);
+}
+
+#titulo-producto {
+    color: black;
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    color: black;
+    font-size: small;
+}
+
 .producto-detalle {
     padding: 2rem;
 }
@@ -21,6 +36,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
+    margin: 12% 0 0 0;
 }
 
 .imagen-principal img {
@@ -31,7 +47,6 @@
 
 .info-producto h1 {
     font-size: 2rem;
-    margin-bottom: 1rem;
 }
 
 .precio {
@@ -75,7 +90,7 @@
 }
 
 .cantidad {
-    margin-bottom: 1.5rem;
+    margin: 10px;
 }
 
 .cantidad input {
@@ -125,6 +140,6 @@
     }
     
     .info-producto h1 {
-        font-size: 1.5rem;
+        font-size: 1.;
     }
 }
