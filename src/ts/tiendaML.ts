@@ -245,7 +245,7 @@ function determinarCategoria(titulo: string): string {
 
 function renderProductosHtml(registros: Producto[]) {
   registros.forEach((registro) => {
-    let { _id, main_image, title, price } = registro;
+    let { _id, main_image, images, title, price } = registro;
     const categoria = determinarCategoria(title);
     
     const divProducto = createElementHtml({
@@ -264,8 +264,9 @@ function renderProductosHtml(registros: Producto[]) {
 
     const img = createElementHtml({
       element: "img",
-      src: main_image,
-      style: "width: 100%; height: 200px; object-fit: cover;"
+      src: images[0].url,
+      style: "width: 100%; height: 200px; object-fit: cover;",
+      classname: ["img-ml"],
     }) as HTMLImageElement;
 
     const nombre = createElementHtml({
