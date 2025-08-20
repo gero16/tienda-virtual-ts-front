@@ -1,0 +1,130 @@
+.producto-detalle {
+    padding: 2rem;
+}
+
+.breadcrumb {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.producto-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.imagen-principal img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.info-producto h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.precio {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+.disponibilidad {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.variantes {
+    margin-bottom: 1.5rem;
+}
+
+.opciones-variantes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.variante-option {
+    border: 2px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.variante-option:hover {
+    border-color: #007bff;
+}
+
+.variante-option.seleccionada {
+    border-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.cantidad {
+    margin-bottom: 1.5rem;
+}
+
+.cantidad input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 80px;
+}
+
+.btn-agregar {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-agregar:hover {
+    background-color: #0056b3;
+}
+
+.btn-agregar:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.volver-tienda {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.volver-tienda a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.volver-tienda a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .producto-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-producto h1 {
+        font-size: 1.5rem;
+    }
+}
