@@ -1,5 +1,4 @@
 import { Producto, Variante } from '../interface/mercadolibre';
-import { agregarProducto } from './tiendaML';
 
 let productoActual: Producto | null = null;
 let varianteSeleccionada: Variante | null = null;
@@ -147,7 +146,7 @@ function agregarProductoAlCarrito(producto: Producto, variante: Variante, cantid
     // para manejar productos con variantes
     
     // Por ahora, simplemente redirigimos a la tienda
-    alert(`Producto "${producto.title}" (${variante.color}, ${variante.size}) agregado al carrito`);
+    alert(`Producto "${producto.title}" (${variante.color}, ${variante.size} - Cantidad : ${cantidad} ) agregado al carrito`);
     window.location.href = 'tienda-nueva.html';
 }
 
